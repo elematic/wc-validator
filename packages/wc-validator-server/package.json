@@ -1,0 +1,110 @@
+{
+  "name": "@elematic/wc-validator-server",
+  "private": "true",
+  "description": "A web component validator",
+  "type": "module",
+  "scripts": {
+    "build": "wireit",
+    "test": "wireit",
+    "start": "wireit",
+    "start:dev": "wireit",
+    "fetch-data": "wireit"
+  },
+  "license": "MIT",
+  "wireit": {
+    "build": {
+      "command": "tsc --pretty",
+      "files": [
+        "src/**/*.ts",
+        "tsconfig.json"
+      ],
+      "output": [
+        ".tsbuildinfo",
+        "index.{js,js.map,d.ts,d.ts.map}",
+        "lib/",
+        "scripts/"
+      ],
+      "clean": "if-file-deleted"
+    },
+    "test": {
+      "command": "node --enable-source-maps --test --test-reporter=spec \"test/**/*_test.js\"",
+      "dependencies": [
+        "build"
+      ],
+      "files": [],
+      "output": []
+    },
+    "start": {
+      "command": "node index.js",
+      "service": {
+        "readyWhen": {
+          "lineMatches": "Validator server listening on"
+        }
+      },
+      "dependencies": [
+        "build"
+      ]
+    },
+    "start:dev": {
+      "command": "node --enable-source-maps index.js --dev",
+      "env": {
+        "PORT": "3600",
+        "FIREBASE_AUTH_EMULATOR_HOST": "127.0.0.1:9099",
+        "FIRESTORE_EMULATOR_HOST": "127.0.0.1:8080"
+      },
+      "service": {
+        "readyWhen": {
+          "lineMatches": "Validator server listening on"
+        }
+      },
+      "dependencies": [
+        "build",
+        "emulators:start"
+      ]
+    },
+    "fetch-data": {
+      "command": "node scripts/fetch-data.js",
+      "dependencies": [
+        "build"
+      ],
+      "clean": true
+    },
+    "emulators:start": {
+      "command": "firebase emulators:start",
+      "service": {
+        "readyWhen": {
+          "lineMatches": "All emulators ready"
+        }
+      },
+      "files": [
+        "firebase.json",
+        "firestore.indexes.json",
+        "firestore.rules"
+      ],
+      "env": {
+        "IMPORT": {
+          "external": true
+        }
+      }
+    }
+  },
+  "devDependencies": {
+    "@types/npm-registry-fetch": "^8.0.7",
+    "firebase-tools": "^13.14.1",
+    "tar": "^7.4.3",
+    "typescript": "~5.6.3",
+    "wireit": "^0.14.4"
+  },
+  "dependencies": {
+    "@google-cloud/firestore": "^7.10.0",
+    "@types/semver": "^7.5.8",
+    "@zipadee/javascript": "^0.0.15",
+    "@zipadee/router": "^0.0.15",
+    "ajv": "^8.17.1",
+    "custom-elements-manifest": "^2.1.0",
+    "jsonc-parser": "^3.3.1",
+    "npm-registry-fetch": "^18.0.2",
+    "semver": "^7.6.3",
+    "zipadee": "^0.0.15"
+  }
+}

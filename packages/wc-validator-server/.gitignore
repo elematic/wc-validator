@@ -1,0 +1,14 @@
+/lib
+/test
+/fixtures
+/scripts
+/.tsbuildinfo
+
+/index.js
+/index.js.map
+/index.d.ts
+/index.d.ts.map
+
+/firebase-debug.log
+/firestore-debug.log
+/ui-debug.log
