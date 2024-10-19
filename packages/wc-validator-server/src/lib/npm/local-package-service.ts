@@ -5,7 +5,7 @@ import type {HttpError, Package, Version} from './npm.js';
 import type {PackageService} from './package-service.js';
 
 export const getPackagePath = (packageName: string) =>
-  path.resolve('fixtures', packageName);
+  path.resolve('package-cache', packageName);
 
 export const getPackageMetadataPath = (packageName: string) =>
   path.resolve(getPackagePath(packageName), 'doc.json');

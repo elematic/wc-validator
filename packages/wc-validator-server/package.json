@@ -8,7 +8,7 @@
     "test": "wireit",
     "start": "wireit",
     "start:dev": "wireit",
-    "fetch-data": "wireit"
+    "fetch-package": "wireit"
   },
   "license": "MIT",
   "wireit": {
@@ -62,8 +62,8 @@
         "emulators:start"
       ]
     },
-    "fetch-data": {
-      "command": "node scripts/fetch-data.js",
+    "fetch-package": {
+      "command": "node scripts/fetch-package.js",
       "dependencies": [
         "build"
       ],
